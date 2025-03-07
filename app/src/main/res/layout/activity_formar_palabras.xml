@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FormarPalabrasActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#B8D4F0"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <!-- Instrucciones -->
+        <TextView
+            android:id="@+id/txtInstrucciones"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="18dp"
+            android:fontFamily="casual"
+            android:text="Organiza las letras para formar la palabra correcta:"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <!-- Contenedor de botones para las letras -->
+        <GridLayout
+            android:id="@+id/contenedorLetras"
+            android:layout_width="match_parent"
+            android:layout_height="119dp"
+            android:layout_marginBottom="16dp"
+            android:columnCount="6" />
+
+        <!-- TextView para mostrar la palabra formada -->
+        <TextView
+            android:id="@+id/txtPalabraFormada"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="casual"
+            android:text="Palabra formada: "
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <!-- TextView para mostrar la puntuación -->
+        <TextView
+            android:id="@+id/txtPuntuacion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="casual"
+            android:text="Puntuación: 0"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <!-- Botones para validar y borrar -->
+        <Button
+            android:id="@+id/btnValidar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="#83E94A"
+            android:fontFamily="casual"
+            android:text="Validar"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnBorrar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="#C62828"
+            android:fontFamily="casual"
+            android:text="Borrar"
+            android:textStyle="bold" />
+
+        <!-- Botón de Atrás -->
+        <Button
+            android:id="@+id/btnAtras"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#BD7CE6"
+            android:fontFamily="casual"
+            android:text="Atrás"
+            android:textStyle="bold" />
+        <!-- Agrega este LinearLayout al final de tu layout en activity_formar_palabras.xml -->
+        <LinearLayout
+            android:id="@+id/panelResultados"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#B8D4F0"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/txtPuntosFinales"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="Puntuación final: 0"
+                android:textSize="24sp" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</ScrollView>
