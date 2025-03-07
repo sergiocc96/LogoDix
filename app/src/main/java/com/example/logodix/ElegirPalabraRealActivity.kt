@@ -87,7 +87,7 @@ class ElegirPalabraRealActivity : AppCompatActivity() {
 
         // Botón Siguiente
         btnSiguiente.setOnClickListener {
-            Log.d("MiTag", "hola2dsadsad")
+            Log.d("MiTag", "hola2dsadsa22d")
 
             onClickSiguiente()
         }
