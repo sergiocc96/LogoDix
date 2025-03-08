@@ -4,13 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent"
+    android:background="#B8D4F0"
     tools:context=".FormarPalabrasActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#B8D4F0"
+
         android:orientation="vertical"
         android:padding="20dp">
 
@@ -55,36 +57,47 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <!-- Botones para validar y borrar -->
-        <Button
-            android:id="@+id/btnValidar"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:backgroundTint="#83E94A"
-            android:fontFamily="casual"
-            android:text="Validar"
-            android:textStyle="bold" />
+            android:orientation="horizontal"
+            android:paddingVertical="20dp">
 
-        <Button
-            android:id="@+id/btnBorrar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:backgroundTint="#C62828"
-            android:fontFamily="casual"
-            android:text="Borrar"
-            android:textStyle="bold" />
+            <Button
+                android:id="@+id/btnAtras"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#BD7CE6"
+                android:fontFamily="casual"
+                android:text="Atrás"
+                android:textStyle="bold" />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
-        <!-- Botón de Atrás -->
-        <Button
-            android:id="@+id/btnAtras"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#BD7CE6"
-            android:fontFamily="casual"
-            android:text="Atrás"
-            android:textStyle="bold" />
+            <Button
+                android:id="@+id/btnBorrar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:backgroundTint="#C62828"
+                android:fontFamily="casual"
+                android:layout_marginRight="15dp"
+                android:text="Borrar"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnValidar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:backgroundTint="#83E94A"
+                android:fontFamily="casual"
+                android:text="Validar"
+                android:textStyle="bold" />
+        </LinearLayout>
+
         <!-- Agrega este LinearLayout al final de tu layout en activity_formar_palabras.xml -->
         <LinearLayout
             android:id="@+id/panelResultados"

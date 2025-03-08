@@ -2,6 +2,7 @@ package com.example.logodix
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -28,6 +29,7 @@ class LoginActivity : AppCompatActivity() {
         btnIniciaSesion.setOnClickListener {
             val correo = txtCorreo.text.toString().trim()
             val password = txtPassword.text.toString().trim()
+            Log.d("sonia LOGIN", correo)
 
             if (correo.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show()
@@ -40,7 +42,9 @@ class LoginActivity : AppCompatActivity() {
                     val intent = Intent(this, HomeActivity::class.java)
                     intent.putExtra("correoUsuario", correo)
                     intent.putExtra("nombreUsuario", nombre)
-                    intent.putExtra("ID_USUARIO",idUsuario)
+                    Log.d("sonia LOGIN", idUsuario.toString())
+
+                    intent.putExtra("ID_USUARIO", idUsuario)
                     startActivity(intent)
                     finish()  // Cierra la actividad de login
                 } else {

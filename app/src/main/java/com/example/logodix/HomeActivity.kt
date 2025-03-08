@@ -2,6 +2,7 @@ package com.example.logodix
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -20,7 +21,8 @@ class HomeActivity : AppCompatActivity() {
         // Obtener los datos pasados desde el login
         val correo = intent.getStringExtra("correoUsuario")
         val nombre = intent.getStringExtra("nombreUsuario")
-        val id =intent.getStringExtra("ID_USUARIO")
+        val idUsuario = intent.getIntExtra("ID_USUARIO", 0)
+
 
         // Mostrar mensaje de bienvenida
         val txtBienvenida = findViewById<TextView>(R.id.txtBienvenida)
@@ -58,12 +60,14 @@ class HomeActivity : AppCompatActivity() {
         // Acción del botón "Formar palabras"
         formarPalabras.setOnClickListener {
             val intent = Intent(this, FormarPalabrasActivity::class.java)
+            intent.putExtra("ID_USUARIO", idUsuario)
             startActivity(intent)
         }
 
         // Acción del botón "Elige la palabra real"
         elegirPalabra.setOnClickListener {
             val intent = Intent(this, ElegirPalabraRealActivity::class.java)
+            intent.putExtra("ID_USUARIO", idUsuario)
             startActivity(intent)
         }
 

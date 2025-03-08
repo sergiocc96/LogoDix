@@ -163,23 +163,6 @@ class PalabrasDAO(private val dbHelper: DBHelper) {
 
     data class ParPalabra(val id: Int, val palabraReal: String, val palabraFalsa: String)
 
-    fun obtenerParPalabra(nivel: String): ParPalabra? {
-        val db = dbHelper.readableDatabase
-        val cursor: Cursor = db.rawQuery(
-            "SELECT id, palabra_real, palabra_falsa FROM pseudopalabras WHERE nivel = ? AND usada=0 ORDER BY RANDOM() LIMIT 1",
-            arrayOf(nivel)
-        )
-        val par = if (cursor.moveToFirst()){
-            ParPalabra(
-                id = cursor.getInt(0),
-                palabraReal = cursor.getString(1),
-                palabraFalsa = cursor.getString(2)
-            )
-        }else null
-        cursor.close()
-        db.close()
-        return par
-    }
     fun insertarPseudopalabrasPredefinidas() {
         val db = dbHelper.writableDatabase
         val pseudopalabras = listOf(
@@ -270,7 +253,7 @@ class PalabrasDAO(private val dbHelper: DBHelper) {
 
     fun obtenerTodasPseudopalabras(): List<ParPalabra> {
         val db = dbHelper.readableDatabase
-        val cursor: Cursor = db.rawQuery("SELECT id, palabra_real, palabra_falsa FROM pseudopalabras", null)
+        val cursor: Cursor = db.rawQuery("SELECT id, palabra_real, palabra_falsa FROM pseudopalabras WHERE usada=0", null)
         val lista = mutableListOf<ParPalabra>()
         while (cursor.moveToNext()) {
             lista.add(

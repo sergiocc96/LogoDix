@@ -42,7 +42,7 @@ class ElegirPalabraRealActivity : AppCompatActivity() {
     //variable para integrar la puntuacion de BD
     private var registroCreado= false
     //id de la actividad 2
-    private val actividadId= 4
+    private val actividadId= 1
     private var idUsuario=0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,6 +58,7 @@ class ElegirPalabraRealActivity : AppCompatActivity() {
         val dbHelper = DBHelper(this)
         palabrasDAO = PalabrasDAO(dbHelper)
         puntuacionesDAO= PuntuacionesDAO(this)
+
 
         // Solo insertar pseudopalabras si la tabla está vacía
         if (palabrasDAO.obtenerTodasPseudopalabras().isEmpty()) {
@@ -87,7 +88,6 @@ class ElegirPalabraRealActivity : AppCompatActivity() {
 
         // Botón Siguiente
         btnSiguiente.setOnClickListener {
-            Log.d("MiTag", "hola2dsadsa22d")
 
             onClickSiguiente()
         }
@@ -99,6 +99,7 @@ class ElegirPalabraRealActivity : AppCompatActivity() {
 
 
         // cargar palabras no usadas y barajarlas
+
         pares= palabrasDAO.obtenerPseudopalabrasSinUsar("facil").toMutableList()
         pares.shuffle()
         // Mostrar la primera pareja
@@ -202,6 +203,8 @@ class ElegirPalabraRealActivity : AppCompatActivity() {
     private fun actualizarOInsertarPuntuacion() {
         // Consulta si ya existe una puntuación para este usuario y actividad
         val puntuacionExistente = puntuacionesDAO.obtenerPuntuacionUsuarioActividad(idUsuario, actividadId)
+        Log.d("sonia elegir palabra", idUsuario.toString())
+
         if (puntuacionExistente == null) {
             // No existe registro: lo insertamos
             val insercion = puntuacionesDAO.insertarPuntuacion(idUsuario, actividadId, puntuacion)
@@ -215,6 +218,7 @@ class ElegirPalabraRealActivity : AppCompatActivity() {
         }
     }
     private fun mostrarResultadosFinales() {
+        // Aquí quiero insertar puntucaion final
         // Ocultar elementos de juego
         txtOpcion1.visibility = View.GONE
         txtOpcion2.visibility = View.GONE
