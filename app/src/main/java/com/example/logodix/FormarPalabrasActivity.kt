@@ -2,6 +2,7 @@ package com.example.logodix
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.GridLayout
@@ -25,7 +26,7 @@ class FormarPalabrasActivity : AppCompatActivity() {
     private lateinit var btnBorrar: Button
     private lateinit var btnAtras: Button
     private lateinit var txtPuntuacion: TextView
-
+    private val actividadId= 1
     // Palabra correcta obtenida de la BD
     private var palabraCorrecta: String? = null
     private var palabras: MutableList<Pair<Int, String>> = mutableListOf()
@@ -42,6 +43,7 @@ class FormarPalabrasActivity : AppCompatActivity() {
 
     // Variable para la puntuación actual
     private var puntuacion = 0
+    private var idUsuario=0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,6 +55,7 @@ class FormarPalabrasActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        idUsuario=intent.getIntExtra("ID_USUARIO",0)
 
         // Inicializamos DBHelper, PalabrasDAO y PuntuacionesDAO
         val dbHelper = DBHelper(this)
@@ -196,9 +199,27 @@ class FormarPalabrasActivity : AppCompatActivity() {
             btn.isEnabled = true
         }
     }
+    private fun actualizarOInsertarPuntuacion() {
+        // Consulta si ya existe una puntuación para este usuario y actividad
+        val puntuacionExistente = puntuacionesDAO.obtenerPuntuacionUsuarioActividad(idUsuario, actividadId)
+        Log.d("sonia formar palabras", idUsuario.toString())
 
+        if (puntuacionExistente == null) {
+            // No existe registro: lo insertamos
+            val insercion = puntuacionesDAO.insertarPuntuacion(idUsuario, actividadId, puntuacion)
+            if (!insercion) {
+                Toast.makeText(this, "Error al guardar la puntuación", Toast.LENGTH_SHORT).show()
+            }
+        } else {
+            //lo actualizamos la puntuacion reemplazandola por la nueva puntuacion
+            val nuevaPuntuacion= puntuacionExistente + puntuacion
+            puntuacionesDAO.actualizarPuntuacion(idUsuario, actividadId,puntuacion)
+        }
+    }
     // al final de la actividad se presentaran las puntuaciones
     private fun mostrarResultadosFinales() {
+        actualizarOInsertarPuntuacion()
+
         // Oculta la interfaz de juego
         letterContainer.visibility = View.GONE
         txtInstrucciones.visibility = View.GONE

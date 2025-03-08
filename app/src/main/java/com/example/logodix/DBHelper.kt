@@ -21,14 +21,19 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, "logodix.db", null,
         db?.execSQL(creaTablaUsuarios)
 
         // Crear la tabla de actividades
+        // Crear la tabla de actividades
         val creaTablaActividades = """
-            CREATE TABLE IF NOT EXISTS actividades (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                nombre_actividad TEXT,
-                nivel TEXT CHECK(nivel IN ('facil', 'medio', 'dificil'))
-            )
-        """.trimIndent()
+        CREATE TABLE IF NOT EXISTS actividades (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nombre_actividad TEXT,
+            nivel TEXT CHECK(nivel IN ('facil', 'medio', 'dificil'))
+        )
+    """.trimIndent()
         db?.execSQL(creaTablaActividades)
+
+        // Insertar las actividades por defecto
+        db?.execSQL("INSERT INTO actividades (nombre_actividad, nivel) VALUES ('formar_palabras', 'facil')")
+        db?.execSQL("INSERT INTO actividades (nombre_actividad, nivel) VALUES ('escoger_palabra_real', 'facil')")
 
         // Crear la tabla de puntuaciones
         val creaTablaPuntuaciones = """
