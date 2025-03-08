@@ -268,6 +268,7 @@ class PalabrasDAO(private val dbHelper: DBHelper) {
         db.close()
         return lista
     }
+    //comentario
     fun obtenerPseudopalabrasSinUsar(nivel: String): List<ParPalabra> {
         val db = dbHelper.readableDatabase
         val cursor: Cursor = db.rawQuery(
