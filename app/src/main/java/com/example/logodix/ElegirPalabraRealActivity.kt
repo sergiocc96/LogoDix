@@ -42,7 +42,7 @@ class ElegirPalabraRealActivity : AppCompatActivity() {
     //variable para integrar la puntuacion de BD
     private var registroCreado= false
     //id de la actividad 2
-    private val actividadId= 1
+    private val actividadId= 2
     private var idUsuario=0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -177,7 +177,7 @@ class ElegirPalabraRealActivity : AppCompatActivity() {
 
         haRespondido = true
         actualizarPuntuacionUI()
-        actualizarOInsertarPuntuacion()
+
 
         // Marcar la palabra como usada
         parActual?.let { palabrasDAO.marcarPseudopalabraUsada(it.id) }
@@ -200,23 +200,6 @@ class ElegirPalabraRealActivity : AppCompatActivity() {
         // Ya respondió, entonces cargamos una nueva pareja
         mostrarNuevoPar()
     }
-    private fun actualizarOInsertarPuntuacion() {
-        // Consulta si ya existe una puntuación para este usuario y actividad
-        val puntuacionExistente = puntuacionesDAO.obtenerPuntuacionUsuarioActividad(idUsuario, actividadId)
-        Log.d("sonia elegir palabra", idUsuario.toString())
-
-        if (puntuacionExistente == null) {
-            // No existe registro: lo insertamos
-            val insercion = puntuacionesDAO.insertarPuntuacion(idUsuario, actividadId, puntuacion)
-            if (!insercion) {
-                Toast.makeText(this, "Error al guardar la puntuación", Toast.LENGTH_SHORT).show()
-            }
-        } else {
-            //lo actualizamos la puntuacion reemplazandola por la nueva puntuacion
-            val nuevaPuntuacion= puntuacionExistente + puntuacion
-            puntuacionesDAO.actualizarPuntuacion(idUsuario, actividadId,puntuacion)
-        }
-    }
     private fun mostrarResultadosFinales() {
         // Aquí quiero insertar puntucaion final
         // Ocultar elementos de juego
@@ -224,6 +207,11 @@ class ElegirPalabraRealActivity : AppCompatActivity() {
         txtOpcion2.visibility = View.GONE
         btnSiguiente.visibility = View.GONE
 
+        val resInsertarPuntuaciones = puntuacionesDAO.actualizarOInsertarPuntuacion(idUsuario,actividadId,puntuacion)
+
+        if (!resInsertarPuntuaciones) {
+            Toast.makeText(this, "Error al guardar la puntuación", Toast.LENGTH_SHORT).show()
+        }
         // Mostrar la puntuación final (se puede usar txtPuntuacion)
         txtPuntuacion.text = "Puntuación final: $puntuacion"
 

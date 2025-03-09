@@ -19,11 +19,17 @@ class HomeActivity : AppCompatActivity() {
         dbHelper = DBHelper(this)
 
         // Obtener los datos pasados desde el login
-        val correo = intent.getStringExtra("correoUsuario")
-        val nombre = intent.getStringExtra("nombreUsuario")
-        val idUsuario = intent.getIntExtra("ID_USUARIO", 0)
+        //val correo = intent.getStringExtra("correoUsuario")
+        //val nombre = intent.getStringExtra("nombreUsuario")
+        //val idUsuario = intent.getIntExtra("ID_USUARIO", 0)
+        val sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
+        val correo = sharedPreferences.getString("correoUsuario", "")
+        val nombre = sharedPreferences.getString("nombreUsuario", "")
+        val idUsuario = sharedPreferences.getInt("ID_USUARIO", 0)
 
-
+        Log.d("PEPE",correo.toString())
+        Log.d("PEPE",nombre.toString())
+        Log.d("PEPE",idUsuario.toString())
         // Mostrar mensaje de bienvenida
         val txtBienvenida = findViewById<TextView>(R.id.txtBienvenida)
 

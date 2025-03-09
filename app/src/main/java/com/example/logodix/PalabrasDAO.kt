@@ -272,7 +272,7 @@ class PalabrasDAO(private val dbHelper: DBHelper) {
     fun obtenerPseudopalabrasSinUsar(nivel: String): List<ParPalabra> {
         val db = dbHelper.readableDatabase
         val cursor: Cursor = db.rawQuery(
-            "SELECT id, palabra_real, palabra_falsa FROM pseudopalabras WHERE nivel = ? AND usada = 0",
+            "SELECT id, palabra_real, palabra_falsa FROM pseudopalabras WHERE nivel = ? AND usada = 0 limit 2",
             arrayOf(nivel)
         )
 

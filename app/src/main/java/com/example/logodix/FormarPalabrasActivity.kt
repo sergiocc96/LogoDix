@@ -199,26 +199,9 @@ class FormarPalabrasActivity : AppCompatActivity() {
             btn.isEnabled = true
         }
     }
-    private fun actualizarOInsertarPuntuacion() {
-        // Consulta si ya existe una puntuación para este usuario y actividad
-        val puntuacionExistente = puntuacionesDAO.obtenerPuntuacionUsuarioActividad(idUsuario, actividadId)
-        Log.d("sonia formar palabras", idUsuario.toString())
 
-        if (puntuacionExistente == null) {
-            // No existe registro: lo insertamos
-            val insercion = puntuacionesDAO.insertarPuntuacion(idUsuario, actividadId, puntuacion)
-            if (!insercion) {
-                Toast.makeText(this, "Error al guardar la puntuación", Toast.LENGTH_SHORT).show()
-            }
-        } else {
-            //lo actualizamos la puntuacion reemplazandola por la nueva puntuacion
-            val nuevaPuntuacion= puntuacionExistente + puntuacion
-            puntuacionesDAO.actualizarPuntuacion(idUsuario, actividadId,puntuacion)
-        }
-    }
     // al final de la actividad se presentaran las puntuaciones
     private fun mostrarResultadosFinales() {
-        actualizarOInsertarPuntuacion()
 
         // Oculta la interfaz de juego
         letterContainer.visibility = View.GONE
@@ -226,6 +209,12 @@ class FormarPalabrasActivity : AppCompatActivity() {
         txtPalabraFormada.visibility = View.GONE
         btnValidar.visibility = View.GONE
         btnBorrar.visibility = View.GONE
+
+        val resInsertarPuntuaciones = puntuacionesDAO.actualizarOInsertarPuntuacion(idUsuario,actividadId,puntuacion)
+
+        if (!resInsertarPuntuaciones) {
+            Toast.makeText(this, "Error al guardar la puntuación", Toast.LENGTH_SHORT).show()
+        }
 
         // Muestra el panel de resultados
         val panelResultados = findViewById<LinearLayout>(R.id.panelResultados)

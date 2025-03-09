@@ -3,6 +3,8 @@ package com.example.logodix
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
+import android.util.Log
+import android.widget.Toast
 
 class PuntuacionesDAO(context: Context) {
     private val dbHelper= DBHelper(context)
@@ -20,6 +22,22 @@ class PuntuacionesDAO(context: Context) {
         return result
 
     }
+     fun actualizarOInsertarPuntuacion(idUsuario: Int, actividadId: Int, puntuacion: Int): Boolean {
+        // Consulta si ya existe una puntuación para este usuario y actividad
+        val puntuacionExistente = obtenerPuntuacionUsuarioActividad(idUsuario, actividadId)
+        Log.d("sonia elegir palabra", idUsuario.toString())
+
+        if (puntuacionExistente == null) {
+            // No existe registro: lo insertamos
+            val insercion = insertarPuntuacion(idUsuario, actividadId, puntuacion)
+            return insercion
+        } else {
+            //lo actualizamos la puntuacion reemplazandola por la nueva puntuacion
+            val nuevaPuntuacion= puntuacionExistente + puntuacion
+            return actualizarPuntuacion(idUsuario, actividadId,puntuacion)
+        }
+    }
+
 
     // Método para obtener las puntuaciones de un usuario
     fun obtenerPuntuacionesUsuario(idUsuario: Int): List<String> {

@@ -39,10 +39,20 @@ class LoginActivity : AppCompatActivity() {
                 if (isValid) {
                     val nombre = usuarioDAO.obtenerNombrePorCorreo(correo)
                     val idUsuario= usuarioDAO.obtenerIdPorCorreo(correo)?: 0
+
+                    val sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE)
+                    with(sharedPreferences.edit()){
+                        putString("correoUsuario", correo)
+                        putString("nombreUsuario", nombre)
+                        putInt("ID_USUARIO", idUsuario)
+                        apply()
+                    }
+
+
                     val intent = Intent(this, HomeActivity::class.java)
                     intent.putExtra("correoUsuario", correo)
                     intent.putExtra("nombreUsuario", nombre)
-                    Log.d("sonia LOGIN", idUsuario.toString())
+
 
                     intent.putExtra("ID_USUARIO", idUsuario)
                     startActivity(intent)
